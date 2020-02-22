@@ -17,7 +17,7 @@ use Youshido\GraphQL\Type\Scalar\IntType;
 
 class TestSchema extends AbstractSchema
 {
-    private $testStatusValue = 0;
+    protected $testStatusValue = 0;
 
     public function build(SchemaConfig $config)
     {

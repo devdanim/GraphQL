@@ -14,7 +14,7 @@ use Youshido\GraphQL\Type\Object\AbstractObjectType;
  * @package Youshido\GraphQL\Type\Field
  *
  */
-final class Field extends AbstractField
+class Field extends AbstractField
 {
 
     protected $isFinal = true;

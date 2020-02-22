@@ -47,7 +47,7 @@ class Issue193Test extends \PHPUnit_Framework_TestCase
         ], $contentBlockInterfaceType['possibleTypes']);
     }
 
-    private function getIntrospectionQuery()
+    protected function getIntrospectionQuery()
     {
         return <<<TEXT
 query IntrospectionQuery {

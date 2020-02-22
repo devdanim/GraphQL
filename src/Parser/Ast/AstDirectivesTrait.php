@@ -14,7 +14,7 @@ trait AstDirectivesTrait
     /** @var Directive[] */
     protected $directives;
 
-    private $directivesCache = null;
+    protected $directivesCache = null;
 
 
     public function hasDirectives()

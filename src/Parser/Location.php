@@ -12,10 +12,10 @@ class Location
 {
 
     /** @var  integer */
-    private $line;
+    protected $line;
 
     /** @var  integer */
-    private $column;
+    protected $column;
 
     public function __construct($line, $column)
     {

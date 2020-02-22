@@ -19,25 +19,25 @@ class Request
 {
 
     /** @var  Query[] */
-    private $queries = [];
+    protected $queries = [];
 
     /** @var Fragment[] */
-    private $fragments = [];
+    protected $fragments = [];
 
     /** @var Mutation[] */
-    private $mutations = [];
+    protected $mutations = [];
 
     /** @var array */
-    private $variables = [];
+    protected $variables = [];
 
     /** @var VariableReference[] */
-    private $variableReferences = [];
+    protected $variableReferences = [];
 
     /** @var  array */
-    private $queryVariables = [];
+    protected $queryVariables = [];
 
     /** @var array */
-    private $fragmentReferences = [];
+    protected $fragmentReferences = [];
 
     public function __construct($data = [], $variables = [])
     {

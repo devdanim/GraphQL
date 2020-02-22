@@ -25,7 +25,7 @@ class Issue171Test extends \PHPUnit_Framework_TestCase
         }
     }
 
-    private function getIntrospectionQuery()
+    protected function getIntrospectionQuery()
     {
         return  <<<TEXT
 query IntrospectionQuery {

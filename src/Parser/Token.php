@@ -42,16 +42,16 @@ class Token
 
 
     /** @var mixed */
-    private $data;
+    protected $data;
 
     /** @var  string */
-    private $type;
+    protected $type;
 
     /** @var integer */
-    private $line;
+    protected $line;
 
     /** @var integer */
-    private $column;
+    protected $column;
 
     public function __construct($type, $line, $column, $data = null)
     {

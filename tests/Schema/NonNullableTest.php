@@ -18,7 +18,7 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 
 class uid
 {
-    private $uid;
+    protected $uid;
 
     public function __construct($uid)
     {

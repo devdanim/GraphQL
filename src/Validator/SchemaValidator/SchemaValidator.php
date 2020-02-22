@@ -19,7 +19,7 @@ class SchemaValidator
 {
 
     /** @var ConfigValidator */
-    private $configValidator = null;
+    protected $configValidator = null;
     /**
      * @param AbstractSchema $schema
      *

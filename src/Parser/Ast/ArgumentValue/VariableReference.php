@@ -16,13 +16,13 @@ class VariableReference extends AbstractAst implements ValueInterface
 {
 
     /** @var  string */
-    private $name;
+    protected $name;
 
     /** @var  Variable */
-    private $variable;
+    protected $variable;
 
     /** @var  mixed */
-    private $value;
+    protected $value;
 
     /**
      * @param string        $name

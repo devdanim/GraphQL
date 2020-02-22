@@ -17,10 +17,10 @@ class Field extends AbstractAst implements FieldInterface
     use AstDirectivesTrait;
 
     /** @var string */
-    private $name;
+    protected $name;
 
     /** @var null|string */
-    private $alias = null;
+    protected $alias = null;
 
     /**
      * @param string   $name

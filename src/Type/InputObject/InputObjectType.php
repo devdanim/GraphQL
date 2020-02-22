@@ -10,7 +10,7 @@ namespace Youshido\GraphQL\Type\InputObject;
 
 use Youshido\GraphQL\Config\Object\InputObjectTypeConfig;
 
-final class InputObjectType extends AbstractInputObjectType
+class InputObjectType extends AbstractInputObjectType
 {
 
     public function __construct($config)

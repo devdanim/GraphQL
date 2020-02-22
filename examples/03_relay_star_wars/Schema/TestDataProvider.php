@@ -11,7 +11,7 @@ namespace Examples\StarWars;
 
 class TestDataProvider
 {
-    private static $ships = [
+    protected static $ships = [
         'xwing' => ['id' => 1, 'name' => 'X-Wing'],
         'ywing' => ['id' => 2, 'name' => 'Y-Wing'],
         'awing' => ['id' => 3, 'name' => 'A-Wing'],
@@ -23,7 +23,7 @@ class TestDataProvider
         'executor'       => ['id' => 8, 'name' => 'Executor'],
     ];
 
-    private static $factions = [
+    protected static $factions = [
         '1' => [
             'id'    => 1,
             'name'  => 'Alliance to Restore the Republic',
@@ -36,7 +36,7 @@ class TestDataProvider
         ],
     ];
 
-    private static $nextShipId = 9;
+    protected static $nextShipId = 9;
 
     public static function getByNames($names)
     {

@@ -59,12 +59,12 @@ class ScalarTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2016/05/31 12:00:00', $dateType->serialize(new \DateTimeImmutable('2016-05-31 12:00pm')));
     }
 
-    private function assertSerialization(AbstractScalarType $object, $input, $expected)
+    protected function assertSerialization(AbstractScalarType $object, $input, $expected)
     {
         $this->assertEquals($expected, $object->serialize($input), $object->getName() . ' serialize for: ' . serialize($input));
     }
 
-    private function assertParse(AbstractScalarType $object, $input, $expected, $typeName)
+    protected function assertParse(AbstractScalarType $object, $input, $expected, $typeName)
     {
         $parsed = $object->parseValue($input);
         if ($parsed instanceof \DateTime) {

@@ -15,10 +15,10 @@ class Argument extends AbstractAst
 {
 
     /** @var string */
-    private $name;
+    protected $name;
 
     /** @var ValueInterface */
-    private $value;
+    protected $value;
 
     /**
      * @param string         $name

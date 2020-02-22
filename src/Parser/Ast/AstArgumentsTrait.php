@@ -15,7 +15,7 @@ trait AstArgumentsTrait
     /** @var Argument[] */
     protected $arguments;
 
-    private $argumentsCache = null;
+    protected $argumentsCache = null;
 
 
     public function hasArguments()

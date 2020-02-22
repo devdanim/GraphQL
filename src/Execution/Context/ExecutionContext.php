@@ -25,16 +25,16 @@ class ExecutionContext implements ExecutionContextInterface
     use ErrorContainerTrait;
 
     /** @var AbstractSchema */
-    private $schema;
+    protected $schema;
 
     /** @var Request */
-    private $request;
+    protected $request;
 
     /** @var ContainerInterface */
-    private $container;
+    protected $container;
 
     /** @var array */
-    private $typeFieldLookupTable;
+    protected $typeFieldLookupTable;
 
     /**
      * ExecutionContext constructor.

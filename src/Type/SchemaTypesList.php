@@ -12,7 +12,7 @@ namespace Youshido\GraphQL\Type;
 class SchemaTypesList
 {
 
-    private $typesList = [];
+    protected $typesList = [];
 
     /**
      * @param array $types
@@ -53,7 +53,7 @@ class SchemaTypesList
         return (isset($this->typesList[$typeName]));
     }
 
-    private function getTypeName($type) {
+    protected function getTypeName($type) {
         if (is_string($type)) return $type;
         if (is_object($type) && $type instanceof AbstractType) {
             return $type->getName();

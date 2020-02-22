@@ -10,7 +10,7 @@ namespace Youshido\GraphQL\Type\Scalar;
 
 class DateTimeTzType extends AbstractScalarType
 {
-    private $format = 'D, d M Y H:i:s O';
+    protected $format = 'D, d M Y H:i:s O';
 
     public function getName()
     {
@@ -55,7 +55,7 @@ class DateTimeTzType extends AbstractScalarType
         return $date ?: null;
     }
 
-    private function createFromFormat($value)
+    protected function createFromFormat($value)
     {
         return \DateTime::createFromFormat($this->format, $value);
     }

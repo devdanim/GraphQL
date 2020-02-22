@@ -13,7 +13,7 @@ use Youshido\GraphQL\Directive\DirectiveInterface;
 class SchemaDirectivesList
 {
 
-    private $directivesList = [];
+    protected $directivesList = [];
 
     /**
      * @param array $directives
@@ -48,7 +48,7 @@ class SchemaDirectivesList
         return $this;
     }
 
-    private function getDirectiveName($directive)
+    protected function getDirectiveName($directive)
     {
         if (is_string($directive)) return $directive;
         if (is_object($directive) && $directive instanceof DirectiveInterface) {

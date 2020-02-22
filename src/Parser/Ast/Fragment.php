@@ -23,7 +23,7 @@ class Fragment extends AbstractAst
     protected $fields;
 
     /** @var bool */
-    private $used = false;
+    protected $used = false;
 
     /**
      * @param string          $name

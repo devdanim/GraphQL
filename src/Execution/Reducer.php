@@ -25,7 +25,7 @@ class Reducer
 {
 
     /** @var  ExecutionContextInterface */
-    private $executionContext;
+    protected $executionContext;
 
     /**
      * Apply all of $reducers to this query.  Example reducer operations: checking for maximum query complexity,

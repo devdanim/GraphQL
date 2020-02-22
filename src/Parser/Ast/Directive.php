@@ -15,7 +15,7 @@ class Directive extends AbstractAst
     use AstArgumentsTrait;
 
     /** @var string */
-    private $name;
+    protected $name;
 
 
     /**

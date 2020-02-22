@@ -31,7 +31,7 @@ class ConfigValidator implements ConfigValidatorInterface
     /** @var  ConfigValidator */
     protected static $instance;
 
-    private function __construct()
+    protected function __construct()
     {
         $this->initializeRules();
     }

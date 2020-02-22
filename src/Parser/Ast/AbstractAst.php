@@ -15,7 +15,7 @@ abstract class AbstractAst implements LocatableInterface
 {
 
     /** @var  Location */
-    private $location;
+    protected $location;
 
     public function __construct(Location $location)
     {

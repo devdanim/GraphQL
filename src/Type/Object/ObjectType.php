@@ -10,7 +10,7 @@ namespace Youshido\GraphQL\Type\Object;
 
 use Youshido\GraphQL\Config\Object\ObjectTypeConfig;
 
-final class ObjectType extends AbstractObjectType
+class ObjectType extends AbstractObjectType
 {
 
     public function __construct(array $config)

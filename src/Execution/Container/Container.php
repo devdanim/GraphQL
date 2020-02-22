@@ -11,9 +11,9 @@ namespace Youshido\GraphQL\Execution\Container;
 class Container implements ContainerInterface
 {
 
-    private $keyset   = [];
-    private $values   = [];
-    private $services = [];
+    protected $keyset   = [];
+    protected $values   = [];
+    protected $services = [];
 
 
     /**
@@ -66,7 +66,7 @@ class Container implements ContainerInterface
         return isset($this->keyset[$id]);
     }
 
-    private function assertIdentifierSet($id)
+    protected function assertIdentifierSet($id)
     {
         if (!$this->has($id)) {
             throw new \RuntimeException(sprintf('Container item "%s" was not set', $id));

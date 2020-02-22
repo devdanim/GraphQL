@@ -102,7 +102,7 @@ GRAPHQL;
         ]);
     }
 
-    private function tokenizeStringContents($graphQLString) {
+    protected function tokenizeStringContents($graphQLString) {
         $parser = new TokenizerTestingParser();
         $parser->initTokenizerForTesting('"' . $graphQLString . '"');
 

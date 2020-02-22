@@ -10,7 +10,7 @@ namespace Youshido\GraphQL\Type\InterfaceType;
 
 use Youshido\GraphQL\Config\Object\InterfaceTypeConfig;
 
-final class InterfaceType extends AbstractInterfaceType
+class InterfaceType extends AbstractInterfaceType
 {
 
     public function __construct($config = [])

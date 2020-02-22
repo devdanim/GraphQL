@@ -27,7 +27,7 @@ use Youshido\Tests\DataProvider\TestSchema;
 
 class IntrospectionTest extends \PHPUnit_Framework_TestCase
 {
-    private $introspectionQuery = <<<TEXT
+    protected $introspectionQuery = <<<TEXT
 query IntrospectionQuery {
                 __schema {
                     queryType { name }

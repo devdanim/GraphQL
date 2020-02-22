@@ -229,7 +229,7 @@ class Processor
         }
     }
 
-    private function prepareAstArguments(FieldInterface $field, AstFieldInterface $query, Request $request)
+    protected function prepareAstArguments(FieldInterface $field, AstFieldInterface $query, Request $request)
     {
         foreach ($query->getArguments() as $astArgument) {
             if ($field->hasArgument($astArgument->getName())) {
@@ -240,7 +240,7 @@ class Processor
         }
     }
 
-    private function prepareArgumentValue($argumentValue, AbstractType $argumentType, Request $request)
+    protected function prepareArgumentValue($argumentValue, AbstractType $argumentType, Request $request)
     {
         switch ($argumentType->getKind()) {
             case TypeMap::KIND_LIST:
@@ -305,7 +305,7 @@ class Processor
         throw new ResolveException('Argument type not supported');
     }
 
-    private function getVariableReferenceArgumentValue(VariableReference $variableReference, AbstractType $argumentType, Request $request)
+    protected function getVariableReferenceArgumentValue(VariableReference $variableReference, AbstractType $argumentType, Request $request)
     {
         $variable = $variableReference->getVariable();
         if ($argumentType->getKind() === TypeMap::KIND_LIST) {
@@ -338,7 +338,7 @@ class Processor
      * @param                    $resolvedValue
      * @return array
      */
-    private function collectResult(FieldInterface $field, AbstractObjectType $type, $ast, $resolvedValue)
+    protected function collectResult(FieldInterface $field, AbstractObjectType $type, $ast, $resolvedValue)
     {
         $results = [];
 
@@ -582,9 +582,9 @@ class Processor
     {
         /** @var AstQuery|AstField $ast */
         $arguments = $this->parseArgumentsValues($field, $ast);
-        $astFields = $ast instanceof AstQuery ? $ast->getFields() : [];
+//        $astFields = $ast instanceof AstQuery ? $ast->getFields() : []; // (keywinf)
 
-        return $field->resolve($parentValue, $arguments, $this->createResolveInfo($field, $astFields));
+        return $field->resolve($parentValue, $arguments, $this->createResolveInfo($field, $ast)); // $astFields -> $ast (keywinf)
     }
 
     protected function parseArgumentsValues(FieldInterface $field, AstFieldInterface $ast)
@@ -613,14 +613,14 @@ class Processor
         return array_merge($values, $defaults);
     }
 
-    private function getAlias(AstFieldInterface $ast)
+    protected function getAlias(AstFieldInterface $ast)
     {
         return $ast->getAlias() ?: $ast->getName();
     }
 
-    protected function createResolveInfo(FieldInterface $field, array $astFields)
+    protected function createResolveInfo(FieldInterface $field, $ast)
     {
-        return new ResolveInfo($field, $astFields, $this->executionContext);
+        return new ResolveInfo($field, $ast, $this->executionContext);
     }
 
     /**

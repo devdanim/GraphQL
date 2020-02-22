@@ -15,7 +15,7 @@ use Youshido\GraphQL\Parser\Location;
 class Literal extends AbstractAst implements ValueInterface
 {
 
-    private $value;
+    protected $value;
 
     /**
      * @param mixed $value

@@ -22,7 +22,7 @@ class RequestValidator implements RequestValidatorInterface
         $this->assertAllVariablesUsed($request);
     }
 
-    private function assetFragmentsUsed(Request $request)
+    protected function assetFragmentsUsed(Request $request)
     {
         foreach ($request->getFragmentReferences() as $fragmentReference) {
             $request->getFragment($fragmentReference->getName())->setUsed(true);
@@ -35,7 +35,7 @@ class RequestValidator implements RequestValidatorInterface
         }
     }
 
-    private function assertFragmentReferencesValid(Request $request)
+    protected function assertFragmentReferencesValid(Request $request)
     {
         foreach ($request->getFragmentReferences() as $fragmentReference) {
             if (!$request->getFragment($fragmentReference->getName())) {
@@ -44,7 +44,7 @@ class RequestValidator implements RequestValidatorInterface
         }
     }
 
-    private function assertAllVariablesExists(Request $request)
+    protected function assertAllVariablesExists(Request $request)
     {
         foreach ($request->getVariableReferences() as $variableReference) {
             if (!$variableReference->getVariable()) {
@@ -53,7 +53,7 @@ class RequestValidator implements RequestValidatorInterface
         }
     }
 
-    private function assertAllVariablesUsed(Request $request)
+    protected function assertAllVariablesUsed(Request $request)
     {
         foreach ($request->getQueryVariables() as $queryVariable) {
             if (!$queryVariable->isUsed()) {

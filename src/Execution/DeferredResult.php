@@ -18,7 +18,7 @@ namespace Youshido\GraphQL\Execution;
 class DeferredResult implements DeferredResolverInterface {
 
     /** @var \Youshido\GraphQL\Execution\DeferredResolver */
-    private $resolver;
+    protected $resolver;
 
     /** @var callable */
     protected $callback;

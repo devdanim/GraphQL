@@ -26,7 +26,7 @@ abstract class AbstractField implements FieldInterface
     }
     protected $isFinal = false;
 
-    private $nameCache            = null;
+    protected $nameCache            = null;
 
     public function __construct(array $config = [])
     {

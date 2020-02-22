@@ -11,7 +11,7 @@ namespace Youshido\GraphQL\Type\ListType;
 
 use Youshido\GraphQL\Config\Object\ListTypeConfig;
 
-final class ListType extends AbstractListType
+class ListType extends AbstractListType
 {
 
     public function __construct($itemType)

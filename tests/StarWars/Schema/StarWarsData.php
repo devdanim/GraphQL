@@ -10,7 +10,7 @@ namespace Youshido\Tests\StarWars\Schema;
 
 class StarWarsData
 {
-    private static function luke()
+    protected static function luke()
     {
         return [
             'id'         => '1000',
@@ -21,7 +21,7 @@ class StarWarsData
         ];
     }
 
-    private static function vader()
+    protected static function vader()
     {
         return [
             'id'         => '1001',
@@ -32,7 +32,7 @@ class StarWarsData
         ];
     }
 
-    private static function han()
+    protected static function han()
     {
         return [
             'id'        => '1002',
@@ -42,7 +42,7 @@ class StarWarsData
         ];
     }
 
-    private static function leia()
+    protected static function leia()
     {
         return [
             'id'         => '1003',
@@ -53,7 +53,7 @@ class StarWarsData
         ];
     }
 
-    private static function tarkin()
+    protected static function tarkin()
     {
         return [
             'id'        => '1004',
@@ -74,7 +74,7 @@ class StarWarsData
         ];
     }
 
-    private static function threepio()
+    protected static function threepio()
     {
         return [
             'id'              => '2000',

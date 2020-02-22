@@ -28,7 +28,7 @@ class Parser extends Tokenizer
 {
 
     /** @var array */
-    private $data = [];
+    protected $data = [];
 
     public function parse($source = null)
     {
@@ -72,7 +72,7 @@ class Parser extends Tokenizer
         return $this->data;
     }
 
-    private function init($source = null)
+    protected function init($source = null)
     {
         $this->initTokenizer($source);
 

@@ -34,7 +34,7 @@ use Youshido\Tests\DataProvider\TestSchema;
 class ProcessorTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $_counter = 0;
+    protected $_counter = 0;
 
     public function testInit()
     {

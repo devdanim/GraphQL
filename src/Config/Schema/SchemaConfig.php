@@ -22,11 +22,11 @@ class SchemaConfig extends AbstractConfig
     /**
      * @var SchemaTypesList
      */
-    private $typesList;
+    protected $typesList;
     /**
      * @var SchemaDirectivesList;
      */
-    private $directiveList;
+    protected $directiveList;
 
     public function __construct(array $configData, $contextObject = null, $finalClass = false)
     {

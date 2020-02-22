@@ -14,7 +14,7 @@ use Youshido\GraphQL\Type\Scalar\AbstractScalarType;
 
 class TypeFactory
 {
-    private static $objectsHash = [];
+    protected static $objectsHash = [];
 
     /**
      * @param string $type

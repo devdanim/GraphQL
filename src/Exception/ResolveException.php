@@ -15,7 +15,7 @@ class ResolveException extends \Exception implements LocationableExceptionInterf
 {
 
     /** @var  Location */
-    private $location;
+    protected $location;
 
     public function __construct($message, Location $location = null)
     {

@@ -19,7 +19,7 @@ use Youshido\GraphQL\Validator\ConfigValidator\ConfigValidator;
 class TypeValidationRule implements ValidationRuleInterface
 {
 
-    private $configValidator;
+    protected $configValidator;
 
     public function __construct(ConfigValidator $validator)
     {
@@ -81,7 +81,7 @@ class TypeValidationRule implements ValidationRuleInterface
         }
     }
 
-    private function isArrayOfObjectTypes($data)
+    protected function isArrayOfObjectTypes($data)
     {
         if (!is_array($data) || !count($data)) {
             return false;
@@ -96,7 +96,7 @@ class TypeValidationRule implements ValidationRuleInterface
         return true;
     }
 
-    private function isEnumValues($data)
+    protected function isEnumValues($data)
     {
         if (!is_array($data) || empty($data)) return false;
 
@@ -113,7 +113,7 @@ class TypeValidationRule implements ValidationRuleInterface
         return true;
     }
 
-    private static function isArrayOfInterfaces($data)
+    protected static function isArrayOfInterfaces($data)
     {
         if (!is_array($data)) return false;
 
@@ -126,7 +126,7 @@ class TypeValidationRule implements ValidationRuleInterface
         return true;
     }
 
-    private function isArrayOfFields($data)
+    protected function isArrayOfFields($data)
     {
         if (!is_array($data) || empty($data)) return false;
 
@@ -137,7 +137,7 @@ class TypeValidationRule implements ValidationRuleInterface
         return true;
     }
 
-    private function isField($data, $name = null)
+    protected function isField($data, $name = null)
     {
         if (is_object($data)) {
             if (($data instanceof FieldInterface) || ($data instanceof AbstractType)) {
@@ -159,7 +159,7 @@ class TypeValidationRule implements ValidationRuleInterface
         return $this->configValidator->isValid();
     }
 
-    private function isArrayOfInputFields($data)
+    protected function isArrayOfInputFields($data)
     {
         if (!is_array($data)) return false;
 
@@ -170,7 +170,7 @@ class TypeValidationRule implements ValidationRuleInterface
         return true;
     }
 
-    private function isInputField($data)
+    protected function isInputField($data)
     {
         if (is_object($data)) {
             if ($data instanceof InputFieldInterface) {
@@ -191,7 +191,7 @@ class TypeValidationRule implements ValidationRuleInterface
      * Exists for the performance
      * @return array
      */
-    private function getFieldConfigRules()
+    protected function getFieldConfigRules()
     {
         return [
             'name'              => ['type' => TypeService::TYPE_STRING, 'required' => true],

@@ -25,7 +25,7 @@ class ResolveValidator implements ResolveValidatorInterface
 {
 
     /** @var ExecutionContext */
-    private $executionContext;
+    protected $executionContext;
 
 
     /**

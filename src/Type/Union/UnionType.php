@@ -8,7 +8,7 @@
 
 namespace Youshido\GraphQL\Type\Union;
 
-final class UnionType extends AbstractUnionType
+class UnionType extends AbstractUnionType
 {
 
     protected $isFinal = true;

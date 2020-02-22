@@ -10,7 +10,7 @@ namespace Youshido\GraphQL\Schema;
 
 use Youshido\GraphQL\Config\Schema\SchemaConfig;
 
-final class Schema extends AbstractSchema
+class Schema extends AbstractSchema
 {
     public function build(SchemaConfig $config)
     {

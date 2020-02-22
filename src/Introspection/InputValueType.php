@@ -11,6 +11,7 @@ use Youshido\GraphQL\Field\Field;
 use Youshido\GraphQL\Schema\AbstractSchema;
 use Youshido\GraphQL\Type\NonNullType;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
+use Youshido\GraphQL\Type\Scalar\StringType;
 use Youshido\GraphQL\Type\TypeInterface;
 use Youshido\GraphQL\Type\TypeMap;
 
@@ -36,7 +37,13 @@ class InputValueType extends AbstractObjectType
     public function resolveDefaultValue($value)
     {
         $resolvedValue = $value->getConfig()->getDefaultValue();
-        return $resolvedValue === null ? $resolvedValue : str_replace('"', '', json_encode($resolvedValue));
+//        return $resolvedValue === null ? $resolvedValue : str_replace('"', '', json_encode($resolvedValue));
+        return $resolvedValue === null
+            ? $resolvedValue
+            : ($value->getConfig()->getType() instanceof StringType
+                ? json_encode($resolvedValue)
+                : str_replace('"', '', json_encode($resolvedValue))
+            ); // keywinf (reason: the explorer needs explicit double quotes for mere strings)
     }
 
     public function build($config)

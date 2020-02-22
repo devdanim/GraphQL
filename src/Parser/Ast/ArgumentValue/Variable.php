@@ -15,31 +15,31 @@ class Variable extends AbstractAst implements ValueInterface
 {
 
     /** @var  string */
-    private $name;
+    protected $name;
 
     /** @var  mixed */
-    private $value;
+    protected $value;
 
     /** @var string */
-    private $type;
+    protected $type;
 
     /** @var bool */
-    private $nullable = false;
+    protected $nullable = false;
 
     /** @var bool */
-    private $isArray = false;
+    protected $isArray = false;
 
     /** @var bool */
-    private $used = false;
+    protected $used = false;
 
     /** @var bool */
-    private $arrayElementNullable = true;
+    protected $arrayElementNullable = true;
 
     /** @var bool */
-    private $hasDefaultValue = false;
+    protected $hasDefaultValue = false;
 
     /** @var mixed */
-    private $defaultValue = null;
+    protected $defaultValue = null;
 
     /**
      * @param string   $name

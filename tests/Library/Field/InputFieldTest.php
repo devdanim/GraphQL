@@ -25,7 +25,7 @@ use Youshido\Tests\DataProvider\TestInputField;
 class InputFieldTest extends \PHPUnit_Framework_TestCase
 {
 
-    private $introspectionQuery = <<<TEXT
+    protected $introspectionQuery = <<<TEXT
 
 query IntrospectionQuery {
                 __schema {

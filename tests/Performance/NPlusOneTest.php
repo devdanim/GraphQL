@@ -20,7 +20,7 @@ use Youshido\GraphQL\Type\Scalar\StringType;
 class NPlusOneTest extends \PHPUnit_Framework_TestCase
 {
 
-    private function getDataForPosts()
+    protected function getDataForPosts()
     {
         /**
          * We could make a DB request here, as a simplified version:

@@ -12,7 +12,7 @@ namespace Examples\BookStore;
 class DataProvider
 {
 
-    static private $authors = [
+    static protected $authors = [
         '1' => [
             'id' => '1',
             'firstName' => 'Mark',

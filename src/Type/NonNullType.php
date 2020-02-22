@@ -12,11 +12,11 @@ namespace Youshido\GraphQL\Type;
 use Youshido\GraphQL\Config\Traits\ConfigAwareTrait;
 use Youshido\GraphQL\Exception\ConfigurationException;
 
-final class NonNullType extends AbstractType implements CompositeTypeInterface
+class NonNullType extends AbstractType implements CompositeTypeInterface
 {
     use ConfigAwareTrait;
 
-    private $_typeOf;
+    protected $_typeOf;
 
     /**
      * NonNullType constructor.

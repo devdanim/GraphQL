@@ -1,5 +1,5 @@
 {
-  "name": "youshido/graphql",
+  "name": "dnm/graphql",
   "description": "Pure PHP GraphQL",
   "license": "MIT",
   "authors": [
@@ -14,8 +14,7 @@
   ],
   "require": {
     "php": ">=5.5",
-    "ext-mbstring": "*",
-    "symfony/property-access": "^2.8 || ^3.4 || ^4.4"
+    "ext-mbstring": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8"

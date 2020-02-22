@@ -11,7 +11,7 @@ namespace Youshido\GraphQL\Field;
 
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
 
-final class InputField extends AbstractInputField
+class InputField extends AbstractInputField
 {
 
     protected $isFinal = false;

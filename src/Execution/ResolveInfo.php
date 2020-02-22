@@ -8,21 +8,23 @@
 
 namespace Youshido\GraphQL\Execution;
 
+use Youshido\GraphQL\Execution\Context\ExecutionContext;
 use Youshido\GraphQL\Execution\Context\ExecutionContextInterface;
 use Youshido\GraphQL\Field\FieldInterface;
 use Youshido\GraphQL\Parser\Ast\Field;
 use Youshido\GraphQL\Parser\Ast\Query;
 use Youshido\GraphQL\Type\AbstractType;
+use Youshido\GraphQL\Parser\Ast\Interfaces\FieldInterface as AstFieldInterface;
 
 class ResolveInfo
 {
-    /** @var  FieldInterface */
+    /** @var Field */
     protected $field;
 
-    /** @var Field[] */
-    protected $fieldASTList;
+    /** @var AstFieldInterface */
+    protected $fieldAST;
 
-    /** @var ExecutionContextInterface */
+    /** @var ExecutionContext */
     protected $executionContext;
 
     /**
@@ -34,15 +36,15 @@ class ResolveInfo
      */
     protected $container;
 
-    public function __construct(FieldInterface $field, array $fieldASTList, ExecutionContextInterface $executionContext)
+    public function __construct(FieldInterface $field, $fieldAST, ExecutionContextInterface $executionContext)
     {
         $this->field            = $field;
-        $this->fieldASTList     = $fieldASTList;
+        $this->fieldAST         = $fieldAST;
         $this->executionContext = $executionContext;
     }
 
     /**
-     * @return ExecutionContextInterface
+     * @return ExecutionContext
      */
     public function getExecutionContext()
     {
@@ -50,7 +52,7 @@ class ResolveInfo
     }
 
     /**
-     * @return FieldInterface
+     * @return Field
      */
     public function getField()
     {
@@ -58,29 +60,20 @@ class ResolveInfo
     }
 
     /**
-     * @param string $fieldName
+     * @param string|null $fieldName
      *
-     * @return null|Query|Field
+     * @return null|Query|Field|AstFieldInterface
      */
-    public function getFieldAST($fieldName)
+    public function getFieldAST($fieldName = null)
     {
-        $field = null;
-        foreach ($this->getFieldASTList() as $fieldAST) {
-            if ($fieldAST->getName() === $fieldName) {
-                $field = $fieldAST;
-                break;
-            }
-        }
+        if (!$fieldName) return $this->fieldAST;
 
-        return $field;
-    }
+        foreach ($this->fieldAST->getFields() as $ast)
+            /** @var AstFieldInterface $ast */
+            if ($ast->getName() === $fieldName)
+                return $ast;
 
-    /**
-     * @return Field[]
-     */
-    public function getFieldASTList()
-    {
-        return $this->fieldASTList;
+        return null;
     }
 
     /**

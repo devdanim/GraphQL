@@ -15,7 +15,7 @@ abstract class AbstractParserError extends \Exception implements LocationableExc
 {
 
     /** @var Location */
-    private $location;
+    protected $location;
 
     public function __construct($message, Location $location)
     {

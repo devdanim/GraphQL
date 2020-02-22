@@ -88,7 +88,7 @@ class Connection
         $connectionType = new ObjectType([
             'name'        => $name . 'Connection',
             'description' => 'A connection to a list of items.',
-            'fields'      => array_merge([
+            'fields'      => array_replace_recursive([
                 'totalCount' => [
                     'type'        => new NonNullType(new IntType()),
                     'description' => 'How many nodes.',
