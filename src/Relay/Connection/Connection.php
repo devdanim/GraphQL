@@ -27,16 +27,16 @@ class Connection
     public static function forwardArgs()
     {
         return [
-            'after' => ['type' => TypeMap::TYPE_STRING],
-            'first' => ['type' => TypeMap::TYPE_INT]
+            'after' => ['type' => TypeMap::TYPE_STRING, 'description' => 'Returns the elements in the list that come after the specified cursor'],
+            'first' => ['type' => TypeMap::TYPE_INT, 'description' => 'Returns the first _n_ elements from the list']
         ];
     }
 
     public static function backwardArgs()
     {
         return [
-            'before' => ['type' => TypeMap::TYPE_STRING],
-            'last'   => ['type' => TypeMap::TYPE_INT]
+            'before' => ['type' => TypeMap::TYPE_STRING, 'description' => 'Returns the elements in the list that come before the specified cursor'],
+            'last'   => ['type' => TypeMap::TYPE_INT, 'description' => 'Returns the last _n_ elements from the list']
         ];
     }
 
