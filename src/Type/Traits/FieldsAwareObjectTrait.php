@@ -49,4 +49,13 @@ trait FieldsAwareObjectTrait
         return $this->getConfig()->hasFields();
     }
 
+    public function removeField($fieldName)
+    {
+        return $this->getConfig()->removeField($fieldName);
+    }
+
+    public function removeFields()
+    {
+        return $this->getConfig()->removeFields();
+    }
 }

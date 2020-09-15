@@ -143,4 +143,11 @@ trait FieldsAwareConfigTrait
 
         return $this;
     }
+
+    public function removeFields()
+    {
+        $this->fields = [];
+
+        return $this;
+    }
 }
