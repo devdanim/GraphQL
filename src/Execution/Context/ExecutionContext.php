@@ -81,7 +81,7 @@ class ExecutionContext implements ExecutionContextInterface
         };
     }
 
-    protected function introduceIntrospectionFields()
+    public function introduceIntrospectionFields()
     {
         $schemaField = new SchemaField();
         $this->schema->addQueryField($schemaField);
