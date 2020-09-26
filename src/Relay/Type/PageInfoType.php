@@ -23,14 +23,14 @@ class PageInfoType extends AbstractObjectType
                 'type'        => new NonNullType(new BooleanType()),
                 'description' => 'When paginating forwards, are there more items?'
             ],
-            'hasPreviousPage' => [
-                'type'        => new NonNullType(new BooleanType()),
-                'description' => 'When paginating backwards, are there more items?'
-            ],
-            'startCursor'     => [
-                'type'        => new StringType(),
-                'description' => 'When paginating backwards, the cursor to continue.'
-            ],
+//            'hasPreviousPage' => [
+//                'type'        => new NonNullType(new BooleanType()),
+//                'description' => 'When paginating backwards, are there more items?'
+//            ],
+//            'startCursor'     => [
+//                'type'        => new StringType(),
+//                'description' => 'When paginating backwards, the cursor to continue.'
+//            ],
             'endCursor'       => [
                 'type'        => new StringType(),
                 'description' => 'When paginating forwards, the cursor to continue.'
