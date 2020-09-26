@@ -29,12 +29,12 @@ class ArrayConnection
      */
     public static function offsetToCursor($offset)
     {
-      return self::keyToCursor($offset);
+        return self::keyToCursor($offset);
     }
 
     public static function keyToCursor($key)
     {
-      return base64_encode(self::PREFIX . $key);
+        return base64_encode(self::PREFIX . $key);
     }
 
     /**
@@ -48,30 +48,30 @@ class ArrayConnection
         return self::cursorToKey($cursor);
     }
 
-  /**
-   * Converts a cursor to its array key.
-   *
-   * @param $cursor
-   * @return null|string
-   */
+    /**
+     * Converts a cursor to its array key.
+     *
+     * @param $cursor
+     * @return null|string
+     */
     public static function cursorToKey($cursor) {
-      if ($decoded = base64_decode($cursor)) {
-        return substr($decoded, strlen(self::PREFIX));
-      }
-      return null;
+        if ($decoded = base64_decode($cursor)) {
+            return substr($decoded, strlen(self::PREFIX));
+        }
+        return null;
     }
 
-  /**
-   * Converts a cursor to an array offset.
-   *
-   * @param $cursor
-   *   The cursor string.
-   * @param $default
-   *   The default value, in case the cursor is not given.
-   * @param array $array
-   *   The array to use in counting the offset. If empty, assumed to be an indexed array.
-   * @return int|null
-   */
+    /**
+     * Converts a cursor to an array offset.
+     *
+     * @param $cursor
+     *   The cursor string.
+     * @param $default
+     *   The default value, in case the cursor is not given.
+     * @param array $array
+     *   The array to use in counting the offset. If empty, assumed to be an indexed array.
+     * @return int|null
+     */
     public static function cursorToOffsetWithDefault($cursor, $default, $array = [])
     {
         if (!is_string($cursor)) {
@@ -80,10 +80,10 @@ class ArrayConnection
 
         $key = self::cursorToKey($cursor);
         if (empty($array)) {
-          $offset = $key;
+            $offset = $key;
         }
         else {
-          $offset = array_search($key, array_keys($array));
+            $offset = array_search($key, array_keys($array));
         }
 
         return is_null($offset) ? $default : (int) $offset;
@@ -132,9 +132,9 @@ class ArrayConnection
             'totalCount' => $arrayLength,
             'edges'      => $edges,
             'pageInfo'   => [
-                'startCursor'     => $firstEdge ? $firstEdge['cursor'] : null,
+//                'startCursor'     => $firstEdge ? $firstEdge['cursor'] : null,
                 'endCursor'       => $lastEdge ? $lastEdge['cursor'] : null,
-                'hasPreviousPage' => $last ? $startOffset > $lowerBound : false,
+//                'hasPreviousPage' => $last ? $startOffset > $lowerBound : false,
                 'hasNextPage'     => $first ? $endOffset < $upperBound : false,
             ],
         ];
