@@ -35,8 +35,8 @@ class Connection
     public static function backwardArgs()
     {
         return [
-            'before' => ['type' => TypeMap::TYPE_STRING, 'description' => 'Returns the elements in the list that come before the specified cursor'],
-            'last'   => ['type' => TypeMap::TYPE_INT, 'description' => 'Returns the last _n_ elements from the list']
+//            'before' => ['type' => TypeMap::TYPE_STRING, 'description' => 'Returns the elements in the list that come before the specified cursor'],
+//            'last'   => ['type' => TypeMap::TYPE_INT, 'description' => 'Returns the last _n_ elements from the list']
         ];
     }
 
