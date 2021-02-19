@@ -35,9 +35,19 @@ trait ConfigAwareTrait
         return $this->configCache[$key];
     }
 
+    protected function setConfigValue($key, $value)
+    {
+        $this->configCache[$key] = $value;
+    }
+
     public function getDescription()
     {
         return $this->getConfigValue('description');
+    }
+
+    public function setDescription($value)
+    {
+        $this->setConfigValue('description', $value);
     }
 
 }
