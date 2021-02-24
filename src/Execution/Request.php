@@ -66,7 +66,7 @@ class Request
                 if (!array_key_exists($ref->getName(), $variables)) {
                     /** @var Variable $variable */
                     $variable = $ref->getVariable();
-                    if ($variable->hasDefaultValue()) {
+                    if ($variable && $variable->hasDefaultValue()) {
                         $variables[$variable->getName()] = $variable->getDefaultValue()->getValue();
                         continue;
                     }
