@@ -79,10 +79,10 @@ trait FieldsAwareConfigTrait
             $field = new Field($this->buildFieldConfig($field, $fieldInfo));
         }
 
-        if ($this->hasField($field->getName())) {
-            throw new ConfigurationException(sprintf('Type "%s" was defined more than once', $field->getName()));
-        }
-        
+//        if ($this->hasField($field->getName())) {
+//            throw new ConfigurationException(sprintf('Type "%s" was defined more than once', $field->getName()));
+//        }
+
         $this->fields[$field->getName()] = $field;
 
         return $this;
