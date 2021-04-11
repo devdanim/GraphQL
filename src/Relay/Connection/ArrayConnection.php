@@ -101,6 +101,9 @@ class ArrayConnection
         $first  = isset($args['first']) ? $args['first'] : null;
         $last   = isset($args['last']) ? $args['last'] : null;
 
+        if ($first === -1) $first = null;
+        if ($last === -1) $last = null;
+
         $sliceEnd = $sliceStart + count($data);
 
         $beforeOffset = ArrayConnection::cursorToOffsetWithDefault($before, $arrayLength, $data);
