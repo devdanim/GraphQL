@@ -290,6 +290,7 @@ class Processor
 
             case TypeMap::KIND_SCALAR:
             case TypeMap::KIND_ENUM:
+            case TypeMap::KIND_UNION:
                 /** @var $argumentValue AstLiteral|VariableReference */
                 if ($argumentValue instanceof VariableReference) {
                     return $this->getVariableReferenceArgumentValue($argumentValue, $argumentType, $request);
