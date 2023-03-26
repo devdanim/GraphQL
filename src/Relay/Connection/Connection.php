@@ -8,6 +8,7 @@
 namespace Youshido\GraphQL\Relay\Connection;
 
 
+use Youshido\GraphQL\Exception\ConfigurationException;
 use Youshido\GraphQL\Relay\Type\PageInfoType;
 use Youshido\GraphQL\Type\AbstractType;
 use Youshido\GraphQL\Type\ListType\ListType;
@@ -53,7 +54,7 @@ class Connection
         $name       = $name ?: $type->getName();
         $edgeFields = !empty($config['edgeFields']) ? $config['edgeFields'] : [];
 
-        $edgeType = new ObjectType([
+        return new ObjectType([
             'name'        => $name . 'Edge',
             'description' => 'An edge in a connection.',
             'fields'      => array_merge([
@@ -68,24 +69,24 @@ class Connection
                 ]
             ], $edgeFields)
         ]);
-
-        return $edgeType;
     }
 
     /**
      * @param AbstractType $type
-     * @param null|string  $name
-     * @param array        $config
+     * @param null|string $name
+     * @param array $config
      * @option string  connectionFields
      *
      * @return ObjectType
+     * @throws ConfigurationException
+     * @throws ConfigurationException
      */
     public static function connectionDefinition(AbstractType $type, $name = null, $config = [])
     {
         $name             = $name ?: $type->getName();
         $connectionFields = !empty($config['connectionFields']) ? $config['connectionFields'] : [];
 
-        $connectionType = new ObjectType([
+        return new ObjectType([
             'name'        => $name . 'Connection',
             'description' => 'A connection to a list of items.',
             'fields'      => array_replace_recursive([
@@ -106,27 +107,25 @@ class Connection
                 ]
             ], $connectionFields)
         ]);
-
-        return $connectionType;
     }
 
     public static function getTotalCount($value)
     {
-        return isset($value['totalCount']) ? $value['totalCount'] : -1;
+        return $value['totalCount'] ?? -1;
     }
 
     public static function getEdges($value)
     {
-        return isset($value['edges']) ? $value['edges'] : null;
+        return $value['edges'] ?? null;
     }
 
     public static function getPageInfo($value)
     {
-        return isset($value['pageInfo']) ? $value['pageInfo'] : null;
+        return $value['pageInfo'] ?? null;
     }
 
     public static function getNode($value)
     {
-        return isset($value['node']) ? $value['node'] : null;
+        return $value['node'] ?? null;
     }
 }

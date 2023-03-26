@@ -18,7 +18,7 @@ class ArrayConnection
         if (!is_array($data)) return null;
 
         $index = array_search($object, $data);
-        return $index === false ? null : (string) self::keyToCursor($index);
+        return $index === false ? null : self::keyToCursor($index);
     }
 
     /**
@@ -40,7 +40,7 @@ class ArrayConnection
     /**
      * @param $cursor string
      *
-     * @return int|null
+     * @return string|null
      * @deprecated Use cursorToKey instead.
      */
     public static function cursorToOffset($cursor)
@@ -96,10 +96,10 @@ class ArrayConnection
 
     public static function connectionFromArraySlice(array $data, array $args, $sliceStart, $arrayLength)
     {
-        $after  = isset($args['after']) ? $args['after'] : null;
-        $before = isset($args['before']) ? $args['before'] : null;
-        $first  = isset($args['first']) ? $args['first'] : null;
-        $last   = isset($args['last']) ? $args['last'] : null;
+        $after  = $args['after'] ?? null;
+        $before = $args['before'] ?? null;
+        $first  = $args['first'] ?? null;
+        $last   = $args['last'] ?? null;
 
         if ($first === -1) $first = null;
         if ($last === -1) $last = null;
@@ -124,11 +124,11 @@ class ArrayConnection
         $arraySliceEnd      = count($data) - ($sliceEnd - $endOffset) - $arraySliceStart;
 
         $slice = array_slice($data, $arraySliceStart, $arraySliceEnd, true);
-        $edges = array_map(['self', 'edgeForObjectWithIndex'], $slice, array_keys($slice));
+        $edges = array_map(static::edgeForObjectWithIndex(...), $slice, array_keys($slice));
 
-        $firstEdge  = array_key_exists(0, $edges) ? $edges[0] : null;
+//        $firstEdge  = array_key_exists(0, $edges) ? $edges[0] : null;
         $lastEdge   = count($edges) > 0 ? $edges[count($edges) - 1] : null;
-        $lowerBound = $after ? $afterOffset + 1 : 0;
+//        $lowerBound = $after ? $afterOffset + 1 : 0;
         $upperBound = $before ? $beforeOffset : $arrayLength;
 
         return [
@@ -138,7 +138,7 @@ class ArrayConnection
 //                'startCursor'     => $firstEdge ? $firstEdge['cursor'] : null,
                 'endCursor'       => $lastEdge ? $lastEdge['cursor'] : null,
 //                'hasPreviousPage' => $last ? $startOffset > $lowerBound : false,
-                'hasNextPage'     => $first ? $endOffset < $upperBound : false,
+                'hasNextPage'     => $first && $endOffset < $upperBound,
             ],
         ];
     }
