@@ -32,6 +32,9 @@ class Parser extends Tokenizer
 
     public function parse($source = null)
     {
+        if (is_string($source))
+            $source = str_replace(' ', ' ', $source); // That could be needed for frontend developers (e.g. copy-past)
+
         $this->init($source);
 
         while (!$this->end()) {
