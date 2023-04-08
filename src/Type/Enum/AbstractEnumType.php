@@ -74,7 +74,7 @@ abstract class AbstractEnumType extends AbstractType
     public function serialize($value)
     {
         foreach ($this->getConfig()->get('values') as $valueItem) {
-            if ($value === $valueItem['value']) {
+            if ($value === $valueItem['name'] || $value === $valueItem['value']) {
                 return $valueItem['name'];
             }
         }
@@ -85,7 +85,7 @@ abstract class AbstractEnumType extends AbstractType
     public function parseValue($value)
     {
         foreach ($this->getConfig()->get('values') as $valueItem) {
-            if ($value === $valueItem['name']) {
+            if ($value === $valueItem['name'] || $value === $valueItem['value']) {
                 return $valueItem['value'];
             }
         }
@@ -96,7 +96,7 @@ abstract class AbstractEnumType extends AbstractType
     public function parseInputValue($value)
     {
         foreach ($this->getConfig()->get('values') as $valueItem) {
-            if ($value === $valueItem['value']) {
+            if ($value === $valueItem['name'] || $value === $valueItem['value']) {
                 return $valueItem['name'];
             }
         }
