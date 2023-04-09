@@ -46,6 +46,7 @@ class ConfigValidator implements ConfigValidatorInterface
         }
 
         self::$instance->clearErrors();
+        self::$instance->clearWarnings();
 
         return self::$instance;
     }

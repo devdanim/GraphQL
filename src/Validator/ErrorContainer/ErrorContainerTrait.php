@@ -16,9 +16,19 @@ trait ErrorContainerTrait
     /** @var \Exception[] */
     protected $errors = [];
 
+    /** @var \Exception[] */
+    protected $warnings = [];
+
     public function addError(\Exception $exception)
     {
         $this->errors[] = $exception;
+
+        return $this;
+    }
+
+    public function addWarning(\Exception $exception)
+    {
+        $this->warnings[] = $exception;
 
         return $this;
     }
@@ -28,9 +38,19 @@ trait ErrorContainerTrait
         return ! empty($this->errors);
     }
 
+    public function hasWarnings()
+    {
+        return ! empty($this->errors);
+    }
+
     public function getErrors()
     {
         return $this->errors;
+    }
+
+    public function getWarnings()
+    {
+        return $this->warnings;
     }
 
     public function mergeErrors(ErrorContainerInterface $errorContainer)
@@ -44,11 +64,22 @@ trait ErrorContainerTrait
         return $this;
     }
 
-    public function getErrorsArray($inGraphQLStyle = true)
+    public function mergeWarnings(ErrorContainerInterface $errorContainer)
+    {
+        if ($errorContainer->hasWarnings()) {
+            foreach ($errorContainer->getWarnings() as $warning) {
+                $this->addWarning($warning);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getErrorsArray($inGraphQLStyle = true, bool $warningLevel = false)
     {
         $errors = [];
 
-        foreach ($this->errors as $error) {
+        foreach (($warningLevel ? $this->warnings : $this->errors) as $error) {
             if ($inGraphQLStyle) {
                 // All errors have a message
                 $graphQLError = [
@@ -79,9 +110,21 @@ trait ErrorContainerTrait
         return $errors;
     }
 
+    public function getWarningsArray($inGraphQLStyle = true)
+    {
+        return $this->getErrorsArray($inGraphQLStyle, true);
+    }
+
     public function clearErrors()
     {
         $this->errors = [];
+
+        return $this;
+    }
+
+    public function clearWarnings()
+    {
+        $this->warnings = [];
 
         return $this;
     }

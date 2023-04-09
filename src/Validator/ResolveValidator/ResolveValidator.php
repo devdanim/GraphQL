@@ -11,6 +11,7 @@ namespace Youshido\GraphQL\Validator\ResolveValidator;
 use Youshido\GraphQL\Exception\ResolveException;
 use Youshido\GraphQL\Execution\Context\ExecutionContext;
 use Youshido\GraphQL\Execution\Request;
+use Youshido\GraphQL\Field\AbstractField;
 use Youshido\GraphQL\Field\FieldInterface;
 use Youshido\GraphQL\Field\InputField;
 use Youshido\GraphQL\Parser\Ast\Interfaces\FieldInterface as AstFieldInterface;
@@ -41,20 +42,29 @@ class ResolveValidator implements ResolveValidatorInterface
     public function assetTypeHasField(AbstractType $objectType, AstFieldInterface $ast)
     {
         /** @var AbstractObjectType $objectType */
-        if ($this->executionContext->getField($objectType, $ast->getName()) !== null) {
+        if (null !== ($field = $this->executionContext->getField($objectType, $ast->getName()))) {
+            if ($field->isDeprecated()) {
+                $e = new ResolveException(sprintf('Field "%s" in type "%s" is deprecated. %s', $ast->getName(), $objectType->getNamedType()->getName(), $field->getDeprecationReason()), $ast->getLocation());
+                $this->executionContext->addWarning($e);
+            }
+
             return;
         }
-        
+
         if (!(TypeService::isObjectType($objectType) || TypeService::isInputObjectType($objectType)) || !$objectType->hasField($ast->getName())) {
             $availableFieldNames = implode(', ', array_map(function (FieldInterface $field) {
                 return sprintf('"%s"', $field->getName());
             }, $objectType->getFields()));
-            throw new ResolveException(sprintf('Field "%s" not found in type "%s". Available fields are: %s', $ast->getName(), $objectType->getNamedType()->getName(), $availableFieldNames), $ast->getLocation());
+            $e = new ResolveException(sprintf('Field "%s" not found in type "%s". Available fields are: %s', $ast->getName(), $objectType->getNamedType()->getName(), $availableFieldNames), $ast->getLocation());
+            $this->executionContext->addError($e);
+//            throw $e;
         }
     }
 
-    public function assertValidArguments(FieldInterface $field, AstFieldInterface $query, Request $request)
+    public function assertValidArguments(?FieldInterface $field, ?AstFieldInterface $query, Request $request)
     {
+        if (!$field) return;
+
         $requiredArguments = array_filter($field->getArguments(), function (InputField $argument) {
             return $argument->getType()->getKind() === TypeMap::KIND_NON_NULL;
         });

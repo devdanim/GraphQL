@@ -184,6 +184,8 @@ class Processor
 
             $targetField = $this->executionContext->getField($nonNullType, $ast->getName());
 
+            if (!$targetField) return null;
+
             $this->prepareAstArguments($targetField, $ast, $this->executionContext->getRequest());
             $this->resolveValidator->assertValidArguments($targetField, $ast, $this->executionContext->getRequest());
 
@@ -229,10 +231,10 @@ class Processor
         }
     }
 
-    protected function prepareAstArguments(FieldInterface $field, AstFieldInterface $query, Request $request)
+    protected function prepareAstArguments(?FieldInterface $field, ?AstFieldInterface $query, Request $request)
     {
-        foreach ($query->getArguments() as $astArgument) {
-            if ($field->hasArgument($astArgument->getName())) {
+        foreach ($query?->getArguments() ?: [] as $astArgument) {
+            if ($field?->hasArgument($astArgument->getName())) {
                 $argumentType = $field->getArgument($astArgument->getName())->getType()->getNullableType();
 
                 $astArgument->setValue($this->prepareArgumentValue($astArgument->getValue(), $argumentType, $request));
@@ -660,6 +662,10 @@ class Processor
 
         if ($this->executionContext->hasErrors()) {
             $result['errors'] = $this->executionContext->getErrorsArray();
+        }
+
+        if ($this->executionContext->hasWarnings()) {
+            $result['warnings'] = $this->executionContext->getWarningsArray();
         }
 
         return $result;
