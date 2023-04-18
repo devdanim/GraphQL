@@ -604,6 +604,9 @@ class Processor
 
         foreach ($ast->getArguments() as $astArgument) {
             $argument     = $field->getArgument($astArgument->getName());
+
+            if (!$argument) continue;
+
             $argumentType = $argument->getType()->getNullableType();
 
             $values[$argument->getName()] = $argumentType->parseValue($astArgument->getValue());
