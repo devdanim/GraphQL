@@ -71,8 +71,8 @@ class ResolveValidator implements ResolveValidatorInterface
 
         foreach ($query->getArguments() as $astArgument) {
             if (!$field->hasArgument($astArgument->getName())) {
+                $this->executionContext->addWarning(new ResolveException(sprintf('Unknown argument "%s" on field "%s"', $astArgument->getName(), $field->getName()), $astArgument->getLocation()));
                 continue;
-                throw new ResolveException(sprintf('Unknown argument "%s" on field "%s"', $astArgument->getName(), $field->getName()), $astArgument->getLocation());
             }
 
             $argument     = $field->getArgument($astArgument->getName());
