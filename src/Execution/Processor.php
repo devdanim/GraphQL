@@ -73,7 +73,7 @@ class Processor
         $this->resolveValidator = new ResolveValidator($this->executionContext);
     }
 
-    public function processPayload($payload, $variables = [], $reducers = [])
+    public function processPayload($payload, $variables = [], $reducers = [], bool $debug = false)
     {
         $this->data = [];
 
@@ -655,7 +655,7 @@ class Processor
         return $this->executionContext;
     }
 
-    public function getResponseData()
+    public function getResponseData(bool $debug = false)
     {
         $result = [];
 
@@ -664,7 +664,7 @@ class Processor
         }
 
         if ($this->executionContext->hasErrors()) {
-            $result['errors'] = $this->executionContext->getErrorsArray();
+            $result['errors'] = $this->executionContext->getErrorsArray(debug: $debug);
         }
 
         if ($this->executionContext->hasWarnings()) {

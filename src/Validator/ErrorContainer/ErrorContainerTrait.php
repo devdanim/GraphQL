@@ -75,7 +75,7 @@ trait ErrorContainerTrait
         return $this;
     }
 
-    public function getErrorsArray($inGraphQLStyle = true, bool $warningLevel = false)
+    public function getErrorsArray($inGraphQLStyle = true, bool $warningLevel = false, bool $debug = false)
     {
         $errors = [];
 
@@ -83,7 +83,7 @@ trait ErrorContainerTrait
             if ($inGraphQLStyle) {
                 // All errors have a message
                 $graphQLError = [
-                    'message' => $error->getMessage(),
+                    'message' => $error->getMessage() . ($debug ? ' ' . $error->getTraceAsString() : '')
                 ];
 
                 // Add code if it's non-zero
