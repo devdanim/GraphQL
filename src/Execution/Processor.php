@@ -73,7 +73,7 @@ class Processor
         $this->resolveValidator = new ResolveValidator($this->executionContext);
     }
 
-    public function processPayload($payload, $variables = [], $reducers = [], bool $debug = false)
+    public function processPayload($payload, $variables = [], $reducers = [])
     {
         $this->data = [];
 

@@ -82,9 +82,11 @@ trait ErrorContainerTrait
         foreach (($warningLevel ? $this->warnings : $this->errors) as $error) {
             if ($inGraphQLStyle) {
                 // All errors have a message
-                $graphQLError = [
-                    'message' => $error->getMessage() . ($debug ? ' ' . $error->getTraceAsString() : '')
-                ];
+                $graphQLError = array_replace([
+                    'message' => $error->getMessage() . ($debug ? ' ' . $error->getTraceAsString() : ''),
+                ], $debug ? [
+                    'trace' => $error->getTraceAsString(),
+                ] : []);
 
                 // Add code if it's non-zero
                 if ($error->getCode()) {
