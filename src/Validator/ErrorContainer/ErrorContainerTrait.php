@@ -84,8 +84,10 @@ trait ErrorContainerTrait
                 // All errors have a message
                 $graphQLError = array_replace([
                     'message' => $error->getMessage() . ($debug ? ' ' . $error->getTraceAsString() : ''),
+                    'previous_message' => $error->getPrevious()?->getMessage(),
                 ], $debug ? [
-                    'trace' => $error->getTraceAsString(),
+                    'trace' => $error->getPrevious()?->getMessage() . ($debug ? ' ' . $error->getPrevious()?->getTraceAsString() : ''),
+                    'previous_trace' => $error->getPrevious()?->getTraceAsString(),
                 ] : []);
 
                 // Add code if it's non-zero
