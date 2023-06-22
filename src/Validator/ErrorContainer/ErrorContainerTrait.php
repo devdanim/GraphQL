@@ -85,11 +85,11 @@ trait ErrorContainerTrait
                 $graphQLError = array_replace([
                     'message' => $error->getMessage(),
                 ], $debug ? [
-                    'trace' => $error->getTraceAsString()
+                    'trace' => $error->getTraceAsString(),
                     'previous' => [
                         'message' => $error->getPrevious()?->getMessage(),
                         'trace' => $error->getPrevious()?->getTraceAsString(),
-                    ]
+                    ],
                 ] : []);
 
                 // Add code if it's non-zero
