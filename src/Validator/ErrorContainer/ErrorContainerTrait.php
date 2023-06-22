@@ -83,11 +83,13 @@ trait ErrorContainerTrait
             if ($inGraphQLStyle) {
                 // All errors have a message
                 $graphQLError = array_replace([
-                    'message' => $error->getMessage() . ($debug ? ' ' . $error->getTraceAsString() : ''),
-                    'previous_message' => $error->getPrevious()?->getMessage(),
+                    'message' => $error->getMessage(),
                 ], $debug ? [
-                    'trace' => $error->getPrevious()?->getMessage() . ($debug ? ' ' . $error->getPrevious()?->getTraceAsString() : ''),
-                    'previous_trace' => $error->getPrevious()?->getTraceAsString(),
+                    'trace' => $error->getTraceAsString()
+                    'previous' => [
+                        'message' => $error->getPrevious()?->getMessage(),
+                        'trace' => $error->getPrevious()?->getTraceAsString(),
+                    ]
                 ] : []);
 
                 // Add code if it's non-zero
