@@ -36,6 +36,9 @@ class ExecutionContext implements ExecutionContextInterface
     /** @var array */
     protected $typeFieldLookupTable;
 
+    /** @var array */
+    protected $parsedPayloadsWithVariables = [];
+
     /**
      * ExecutionContext constructor.
      *
@@ -126,6 +129,18 @@ class ExecutionContext implements ExecutionContextInterface
         $this->request = $request;
 
         return $this;
+    }
+
+    public function addParsedPayloadWithVariables($payload, $variables = [])
+    {
+        $this->parsedPayloadsWithVariables[] = [$payload, $variables];
+
+        return $this;
+    }
+
+    public function getParsedPayloadsWithVariables()
+    {
+        return $this->parsedPayloadsWithVariables;
     }
 
     public function get($id)

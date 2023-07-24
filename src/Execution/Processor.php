@@ -578,6 +578,7 @@ class Processor
 
         (new RequestValidator())->validate($request);
 
+        $this->executionContext->addParsedPayloadWithVariables($payload, $variables);
         $this->executionContext->setRequest($request);
     }
 
