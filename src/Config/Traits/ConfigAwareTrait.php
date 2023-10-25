@@ -26,7 +26,7 @@ trait ConfigAwareTrait
         return $this->config;
     }
 
-    protected function getConfigValue($key, $defaultValue = null)
+    public function getConfigValue($key, $defaultValue = null)
     {
         if (array_key_exists($key, $this->configCache)) {
             return $this->configCache[$key];

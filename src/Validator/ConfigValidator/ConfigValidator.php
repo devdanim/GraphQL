@@ -23,7 +23,7 @@ class ConfigValidator implements ConfigValidatorInterface
 
     protected $rules = [];
 
-    protected $extraFieldsAllowed = false;
+    protected $extraFieldsAllowed = true;
 
     /** @var ValidationRuleInterface[] */
     protected $validationRules = [];
