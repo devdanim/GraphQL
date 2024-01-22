@@ -74,7 +74,7 @@ trait TypeCollectorTrait
 
 //            if ($interface instanceof AbstractInterfaceType) {
 //                foreach ($interface->getImplementations() as $implementation) {
-//                    $this->collectTypes($implementation->getName(), $implementation);
+//                    $this->insertType($implementation->getName(), $implementation);
 //                }
 //            }
         }
