@@ -11,7 +11,6 @@ use Youshido\GraphQL\Type\AbstractType;
 use Youshido\GraphQL\Type\InterfaceType\AbstractInterfaceType;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\TypeMap;
-use Youshido\GraphQL\Type\Union\AbstractUnionType;
 
 trait TypeCollectorTrait
 {
@@ -29,9 +28,12 @@ trait TypeCollectorTrait
             case TypeMap::KIND_SCALAR:
                 $this->insertType($type->getName(), $type);
 
-                if ($type->getKind() == TypeMap::KIND_UNION) {
-                    /** @var AbstractUnionType $type */
+                if (method_exists($type, 'getTypes')) {
                     foreach ($type->getTypes() as $subType) {
+                        $this->collectTypes($subType);
+                    }
+                } else if (method_exists($type, 'getImplementations')) {
+                    foreach ($type->getImplementations() as $subType) {
                         $this->collectTypes($subType);
                     }
                 }
