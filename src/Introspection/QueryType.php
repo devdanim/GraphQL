@@ -121,32 +121,35 @@ class QueryType extends AbstractObjectType
             $schema = $info->getExecutionContext()->getSchema();
             $this->collectTypes($schema->getQueryType());
             foreach ($schema->getTypesList()->getTypes() as $type) {
-              $this->collectTypes($type);
+                $this->collectTypes($type);
             }
 
-            $possibleTypes = [];
-            foreach ($this->types as $type) {
-                /** @var $type AbstractObjectType */
-                if ($type->getKind() == TypeMap::KIND_OBJECT) {
-                    $interfaces = $type->getConfig()->getInterfaces();
+            /** @var $value AbstractInterfaceType */
+            return $value->getImplementations();
 
-                    if ($interfaces) {
-                        foreach ($interfaces as $interface) {
-                            if ($interface->getName() == $value->getName()) {
-                                $possibleTypes[] = $type;
-                            }
-
-                            if ($interface instanceof AbstractInterfaceType) {
-                                foreach ($interface->getImplementations() as $implementationType) {
-                                    $possibleTypes[] = $implementationType;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return \array_unique($possibleTypes);
+//            $possibleTypes = [];
+//            foreach ($this->types as $type) {
+//                /** @var $type AbstractObjectType */
+//                if ($type->getKind() == TypeMap::KIND_OBJECT) {
+//                    $interfaces = $type->getConfig()->getInterfaces();
+//
+//                    if ($interfaces) {
+//                        foreach ($interfaces as $interface) {
+//                            if ($interface->getName() == $value->getName()) {
+//                                $possibleTypes[] = $type;
+//                            }
+//
+//                            if ($interface instanceof AbstractInterfaceType) {
+//                                foreach ($interface->getImplementations() as $implementationType) {
+//                                    $possibleTypes[] = $implementationType;
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            return \array_unique($possibleTypes);
         } elseif ($value->getKind() == TypeMap::KIND_UNION) {
             /** @var $value AbstractUnionType */
             return $value->getTypes();
