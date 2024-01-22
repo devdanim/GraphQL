@@ -11,6 +11,7 @@ use Youshido\GraphQL\Type\AbstractType;
 use Youshido\GraphQL\Type\InterfaceType\AbstractInterfaceType;
 use Youshido\GraphQL\Type\Object\AbstractObjectType;
 use Youshido\GraphQL\Type\TypeMap;
+use Youshido\GraphQL\Type\Union\AbstractUnionType;
 
 trait TypeCollectorTrait
 {
@@ -28,11 +29,12 @@ trait TypeCollectorTrait
             case TypeMap::KIND_SCALAR:
                 $this->insertType($type->getName(), $type);
 
-                if (method_exists($type, 'getTypes')) {
+                if ($type instanceof AbstractUnionType) {
                     foreach ($type->getTypes() as $subType) {
                         $this->collectTypes($subType);
                     }
-                } else if (method_exists($type, 'getImplementations')) {
+                }
+                if ($type instanceof AbstractInterfaceType) {
                     foreach ($type->getImplementations() as $subType) {
                         $this->collectTypes($subType);
                     }
@@ -66,13 +68,15 @@ trait TypeCollectorTrait
     protected function checkAndInsertInterfaces($type)
     {
         foreach ((array)$type->getConfig()->getInterfaces() as $interface) {
-            $this->insertType($interface->getName(), $interface);
+            $this->collectTypes($interface);
 
-            if ($interface instanceof AbstractInterfaceType) {
-                foreach ($interface->getImplementations() as $implementation) {
-                    $this->insertType($implementation->getName(), $implementation);
-                }
-            }
+//            $this->insertType($interface->getName(), $interface);
+
+//            if ($interface instanceof AbstractInterfaceType) {
+//                foreach ($interface->getImplementations() as $implementation) {
+//                    $this->collectTypes($implementation->getName(), $implementation);
+//                }
+//            }
         }
     }
 
