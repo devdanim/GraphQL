@@ -75,15 +75,24 @@ trait FieldsAwareConfigTrait
      */
     public function addField($field, $fieldInfo = null)
     {
-        if (!($field instanceof FieldInterface)) {
-            $field = new Field($this->buildFieldConfig($field, $fieldInfo));
+        if (is_array($field)) {
+            foreach ($field as $i => $f) {
+                $this->addField($f, !is_array($fieldInfo) || !$i ? $fieldInfo : array_replace(
+                    $fieldInfo,
+                    ['description' => 'Alias of "'. $field[0] . '"']
+                ));
+            }
+        } else {
+            if (!($field instanceof FieldInterface)) {
+                $field = new Field($this->buildFieldConfig($field, $fieldInfo));
+            }
+
+//            if ($this->hasField($field->getName())) {
+//                throw new ConfigurationException(sprintf('Type "%s" was defined more than once', $field->getName()));
+//            }
+
+            $this->fields[$field->getName()] = $field;
         }
-
-//        if ($this->hasField($field->getName())) {
-//            throw new ConfigurationException(sprintf('Type "%s" was defined more than once', $field->getName()));
-//        }
-
-        $this->fields[$field->getName()] = $field;
 
         return $this;
     }
