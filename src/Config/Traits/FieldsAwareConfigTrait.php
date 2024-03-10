@@ -77,10 +77,10 @@ trait FieldsAwareConfigTrait
     {
         if (is_array($field)) {
             foreach ($field as $i => $f) {
-                $this->addField($f, !is_array($fieldInfo) || !$i ? $fieldInfo : array_replace(
-                    $fieldInfo,
-                    ['description' => 'Alias of "'. $field[0] . '"']
-                ));
+                $this->addField($f, !is_array($fieldInfo) || !$i ? $fieldInfo : array_replace($fieldInfo, [
+                    'description' => 'Alias of "'. $field[0] . '"',
+                    'aliasOf' => $field[0],
+                ]));
             }
         } else {
             if (!($field instanceof FieldInterface)) {
