@@ -33,6 +33,28 @@ trait ArgumentsAwareConfigTrait
         foreach ($argsList as $argumentName => $argumentInfo) {
             if ($argumentInfo instanceof InputField) {
                 $this->arguments[$argumentInfo->getName()] = $argumentInfo;
+                if (!$argumentInfo->getConfigValue('aliasOf')
+                    && $aliases = $argumentInfo->getConfigValue('aliases')
+                ) {
+                    foreach ($aliases as $alias) {
+                        if ($alias === $argumentInfo->getName()) continue;
+
+                        $aliasArgumentInfo = clone $argumentInfo;
+
+                        $aliasArgumentInfoConfig = clone $argumentInfo->getConfig();
+
+                        $aliasArgumentInfoConfig->set('name', $alias);
+                        $aliasArgumentInfoConfig->set('aliasOf', $argumentInfo->getName());
+                        $aliasArgumentInfoConfig->set('description', 'Alias of "' . $argumentInfo->getName() . '". ' . $argumentInfo->getDescription());
+                        $aliasArgumentInfo->setConfig($aliasArgumentInfoConfig);
+
+                        $aliasArgumentInfo->setConfigValue('name', $alias);
+                        $aliasArgumentInfo->setConfigValue('aliasOf', $argumentInfo->getName());
+                        $aliasArgumentInfo->setDescription('Alias of "' . $argumentInfo->getName() . '". ' . $argumentInfo->getDescription());
+
+                        $this->arguments[$alias] = $aliasArgumentInfo;
+                    }
+                }
                 continue;
             } else {
                 $this->addArgument($argumentName, $this->buildConfig($argumentName, $argumentInfo));
@@ -48,6 +70,28 @@ trait ArgumentsAwareConfigTrait
             $argument = new InputField($this->buildConfig($argument, $argumentInfo));
         }
         $this->arguments[$argument->getName()] = $argument;
+        if (!$argument->getConfigValue('aliasOf')
+            && $aliases = $argument->getConfigValue('aliases')
+        ) {
+            foreach ($aliases as $alias) {
+                if ($alias === $argument->getName()) continue;
+
+                $aliasArgument = clone $argument;
+
+                $aliasArgumentConfig = clone $argument->getConfig();
+
+                $aliasArgumentConfig->set('name', $alias);
+                $aliasArgumentConfig->set('aliasOf', $argument->getName());
+                $aliasArgumentConfig->set('description', 'Alias of "' . $argument->getName() . '". ' . $argument->getDescription());
+                $aliasArgument->setConfig($aliasArgumentConfig);
+
+                $aliasArgument->setConfigValue('name', $alias);
+                $aliasArgument->setConfigValue('aliasOf', $argument->getName());
+                $aliasArgument->setDescription('Alias of "' . $argument->getName() . '". ' . $argument->getDescription());
+
+                $this->arguments[$alias] = $aliasArgument;
+            }
+        }
 
         return $this;
     }

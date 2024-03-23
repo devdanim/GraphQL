@@ -597,9 +597,15 @@ class Processor
         $defaults = [];
 
         foreach ($field->getArguments() as $argument) {
+            $name = $argument->getName();
+
+            if ($argument->getConfig()->has('aliasOf')) {
+                $name = $argument->getConfig()->get('aliasOf');
+            }
+
             /** @var $argument InputField */
             if ($argument->getConfig()->has('defaultValue')) {
-                $defaults[$argument->getName()] = $argument->getConfig()->getDefaultValue();
+                $defaults[$name] = $argument->getConfig()->getDefaultValue();
             }
         }
 
@@ -608,12 +614,18 @@ class Processor
 
             if (!$argument) continue;
 
+            $name = $argument->getName();
+
+            if ($argument->getConfig()->has('aliasOf')) {
+                $name = $argument->getConfig()->get('aliasOf');
+            }
+
             $argumentType = $argument->getType()->getNullableType();
 
-            $values[$argument->getName()] = $argumentType->parseValue($astArgument->getValue());
+            $values[$name] = $argumentType->parseValue($astArgument->getValue());
 
-            if (array_key_exists($argument->getName(), $defaults)) {
-                unset($defaults[$argument->getName()]);
+            if (array_key_exists($name, $defaults)) {
+                unset($defaults[$name]);
             }
         }
 

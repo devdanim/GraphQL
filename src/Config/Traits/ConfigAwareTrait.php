@@ -26,6 +26,11 @@ trait ConfigAwareTrait
         return $this->config;
     }
 
+    public function setConfig($config)
+    {
+        $this->config = $config;
+    }
+
     public function getConfigValue($key, $defaultValue = null)
     {
         if (array_key_exists($key, $this->configCache)) {
@@ -35,7 +40,7 @@ trait ConfigAwareTrait
         return $this->configCache[$key];
     }
 
-    protected function setConfigValue($key, $value)
+    public function setConfigValue($key, $value)
     {
         $this->configCache[$key] = $value;
     }
