@@ -63,7 +63,14 @@ abstract class AbstractEnumType extends AbstractType
         $allowedValues             = array_map(function (array $value) {
             return sprintf('%s (%s)', $value['name'], $value['value']);
         }, $this->getConfig()->get('values'));
-        return sprintf('Value must be one of the allowed ones: %s', implode(', ', $allowedValues));
+
+        $stringifiedValue = null;
+        try {
+            $stringifiedValue = json_encode($value);
+        } catch (Throwable) {
+        }
+
+        return sprintf('Value' . ($stringifiedValue ? ' (' . $stringifiedValue . ')' : '') . ' must be one of the allowed ones: %s', implode(', ', $allowedValues));
     }
 
     /**
