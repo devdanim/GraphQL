@@ -189,6 +189,12 @@ class Processor
             $this->prepareAstArguments($targetField, $ast, $this->executionContext->getRequest());
             $this->resolveValidator->assertValidArguments($targetField, $ast, $this->executionContext->getRequest());
 
+            if ($targetField->isDeprecated()) {
+                $deprecationReason = $targetField->getDeprecationReason();
+
+                $this->executionContext->addWarning(new ResolveException(sprintf('Field "%s" in type "%s" is deprecated' . ($deprecationReason ? ": $deprecationReason" : ''), $ast->getName(), $type->getNamedType()->getName()), $ast->getLocation()));
+            }
+
             switch ($kind = $targetField->getType()->getNullableType()->getKind()) {
                 case TypeMap::KIND_ENUM:
                 case TypeMap::KIND_SCALAR:

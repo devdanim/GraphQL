@@ -42,15 +42,6 @@ class ResolveValidator implements ResolveValidatorInterface
     public function assetTypeHasField(AbstractType $objectType, AstFieldInterface $ast)
     {
         /** @var AbstractObjectType $objectType */
-        if (null !== ($field = $this->executionContext->getField($objectType, $ast->getName()))) {
-            if ($field->isDeprecated()) {
-                $e = new ResolveException(sprintf('Field "%s" in type "%s" is deprecated. %s', $ast->getName(), $objectType->getNamedType()->getName(), $field->getDeprecationReason()), $ast->getLocation());
-                $this->executionContext->addWarning($e);
-            }
-
-            return;
-        }
-
         if (!(TypeService::isObjectType($objectType) || TypeService::isInputObjectType($objectType)) || !$objectType->hasField($ast->getName())) {
             $availableFieldNames = implode(', ', array_map(function (FieldInterface $field) {
                 return sprintf('"%s"', $field->getName());

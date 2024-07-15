@@ -21,6 +21,12 @@ trait ErrorContainerTrait
 
     public function addError(\Exception $exception)
     {
+        foreach ($this->errors as $error) {
+            if ($error->getMessage() === $exception->getMessage()) {
+                return $this;
+            }
+        }
+
         $this->errors[] = $exception;
 
         return $this;
@@ -28,6 +34,12 @@ trait ErrorContainerTrait
 
     public function addWarning(\Exception $exception)
     {
+        foreach ($this->warnings as $warning) {
+            if ($warning->getMessage() === $exception->getMessage()) {
+                return $this;
+            }
+        }
+
         $this->warnings[] = $exception;
 
         return $this;
@@ -40,7 +52,7 @@ trait ErrorContainerTrait
 
     public function hasWarnings()
     {
-        return ! empty($this->errors);
+        return ! empty($this->warnings);
     }
 
     public function getErrors()
