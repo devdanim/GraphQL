@@ -66,11 +66,11 @@ class Request
                 if (!array_key_exists($ref->getName(), $variables)) {
                     /** @var Variable $variable */
                     $variable = $ref->getVariable();
-                    if ($variable && $variable->hasDefaultValue()) {
-                        $variables[$variable->getName()] = $variable->getDefaultValue()->getValue();
+                    if ($variable) {
+                        $variables[$variable->getName()] = $variable->hasDefaultValue() ? $variable->getDefaultValue()->getValue() : null;
                         continue;
                     }
-                    throw new InvalidRequestException(sprintf("Variable %s hasn't been submitted", $ref->getName()), $ref->getLocation());
+//                    throw new InvalidRequestException(sprintf("Variable %s hasn't been submitted", $ref->getName()), $ref->getLocation());
                 }
             }
 

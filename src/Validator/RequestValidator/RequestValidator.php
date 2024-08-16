@@ -30,7 +30,7 @@ class RequestValidator implements RequestValidatorInterface
 
         foreach ($request->getFragments() as $fragment) {
             if (!$fragment->isUsed()) {
-                throw new InvalidRequestException(sprintf('Fragment "%s" not used', $fragment->getName()), $fragment->getLocation());
+//                throw new InvalidRequestException(sprintf('Fragment "%s" not used', $fragment->getName()), $fragment->getLocation());
             }
         }
     }
@@ -57,7 +57,7 @@ class RequestValidator implements RequestValidatorInterface
     {
         foreach ($request->getQueryVariables() as $queryVariable) {
             if (!$queryVariable->isUsed()) {
-                throw new InvalidRequestException(sprintf('Variable "%s" not used', $queryVariable->getName()), $queryVariable->getLocation());
+//                throw new InvalidRequestException(sprintf('Variable "%s" not used', $queryVariable->getName()), $queryVariable->getLocation());
             }
         }
     }
