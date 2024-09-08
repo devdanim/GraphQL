@@ -94,6 +94,10 @@ abstract class AbstractListType extends AbstractObjectType implements CompositeT
 
     public function parseValue($value)
     {
+        if ($value instanceof \stdClass) {
+            $value = json_decode(json_encode($value), true);
+        }
+
         foreach ((array) $value as $keyValue => $valueItem) {
             $value[$keyValue] = $this->getItemType()->parseValue($valueItem);
         }
@@ -116,6 +120,6 @@ abstract class AbstractListType extends AbstractObjectType implements CompositeT
      */
     protected function isIterable($value)
     {
-        return null === $value || is_array($value) || ($value instanceof \Traversable);
+        return null === $value || is_array($value) || ($value instanceof \Traversable) || ($value instanceof \stdClass);
     }
 }
