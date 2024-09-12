@@ -95,7 +95,7 @@ abstract class AbstractListType extends AbstractObjectType implements CompositeT
     public function parseValue($value)
     {
         if ($value instanceof \stdClass) {
-            $value = json_decode(json_encode($value), true);
+            $value = get_object_vars($value);
         }
 
         foreach ((array) $value as $keyValue => $valueItem) {
