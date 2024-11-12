@@ -604,6 +604,8 @@ class Processor
         foreach ($field->getArguments() as $argument) {
             $name = $argument->getName();
 
+            $aliasName = null;
+
             if ($argument->getConfig()->has('aliasOf')) {
                 $aliasName = $argument->getConfig()->get('aliasOf');
             }
@@ -624,6 +626,8 @@ class Processor
             if (!$argument) continue;
 
             $name = $argument->getName();
+
+            $aliasName = null;
 
             if ($argument->getConfig()->has('aliasOf')) {
                 $aliasName = $argument->getConfig()->get('aliasOf');
