@@ -599,19 +599,22 @@ class Processor
 
     protected function parseArgumentsValues(FieldInterface $field, AstFieldInterface $ast)
     {
-        $values   = [];
-        $defaults = [];
+        $values = $defaults = [];
 
         foreach ($field->getArguments() as $argument) {
             $name = $argument->getName();
 
             if ($argument->getConfig()->has('aliasOf')) {
-                $name = $argument->getConfig()->get('aliasOf');
+                $aliasName = $argument->getConfig()->get('aliasOf');
             }
 
             /** @var $argument InputField */
             if ($argument->getConfig()->has('defaultValue')) {
                 $defaults[$name] = $argument->getConfig()->getDefaultValue();
+
+                if (isset($aliasName)) {
+                    $defaults[$aliasName] = $argument->getConfig()->getDefaultValue();
+                }
             }
         }
 
@@ -623,19 +626,19 @@ class Processor
             $name = $argument->getName();
 
             if ($argument->getConfig()->has('aliasOf')) {
-                $name = $argument->getConfig()->get('aliasOf');
+                $aliasName = $argument->getConfig()->get('aliasOf');
             }
 
             $argumentType = $argument->getType()->getNullableType();
 
             $values[$name] = $argumentType->parseValue($astArgument->getValue());
 
-            if (array_key_exists($name, $defaults)) {
-                unset($defaults[$name]);
+            if (isset($aliasName)) {
+                $values[$aliasName] = $argumentType->parseValue($astArgument->getValue());
             }
         }
 
-        return array_merge($values, $defaults);
+        return array_merge($defaults, $values);
     }
 
     protected function getAlias(AstFieldInterface $ast)
