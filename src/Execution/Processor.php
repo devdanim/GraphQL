@@ -604,18 +604,29 @@ class Processor
         foreach ($field->getArguments() as $argument) {
             $name = $argument->getName();
 
-            $aliasName = null;
+            $aliasOfName = null;
+            $aliasNames = [];
 
             if ($argument->getConfig()->has('aliasOf')) {
-                $aliasName = $argument->getConfig()->get('aliasOf');
+                $aliasOfName = $argument->getConfig()->get('aliasOf');
+            }
+
+            if ($argument->getConfig()->has('aliases')) {
+                $aliasNames = $argument->getConfig()->get('aliases');
             }
 
             /** @var $argument InputField */
             if ($argument->getConfig()->has('defaultValue')) {
                 $defaults[$name] = $argument->getConfig()->getDefaultValue();
 
-                if (isset($aliasName)) {
-                    $defaults[$aliasName] = $argument->getConfig()->getDefaultValue();
+                if ($aliasOfName) {
+                    $defaults[$aliasOfName] = $argument->getConfig()->getDefaultValue();
+                }
+
+                if ($aliasNames) {
+                    foreach ($aliasNames as $aliasName) {
+                        $defaults[$aliasName] = $argument->getConfig()->getDefaultValue();
+                    }
                 }
             }
         }
@@ -627,18 +638,29 @@ class Processor
 
             $name = $argument->getName();
 
-            $aliasName = null;
+            $aliasOfName = null;
+            $aliasNames = [];
 
             if ($argument->getConfig()->has('aliasOf')) {
-                $aliasName = $argument->getConfig()->get('aliasOf');
+                $aliasOfName = $argument->getConfig()->get('aliasOf');
+            }
+
+            if ($argument->getConfig()->has('aliases')) {
+                $aliasNames = $argument->getConfig()->get('aliases');
             }
 
             $argumentType = $argument->getType()->getNullableType();
 
             $values[$name] = $argumentType->parseValue($astArgument->getValue());
 
-            if (isset($aliasName)) {
-                $values[$aliasName] = $argumentType->parseValue($astArgument->getValue());
+            if ($aliasOfName) {
+                $values[$aliasOfName] = $argumentType->parseValue($astArgument->getValue());
+            }
+
+            if ($aliasNames) {
+                foreach ($aliasNames as $aliasName) {
+                    $values[$aliasName] = $argumentType->parseValue($astArgument->getValue());
+                }
             }
         }
 
